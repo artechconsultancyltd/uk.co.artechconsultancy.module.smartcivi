@@ -204,7 +204,7 @@ function _smartcivi_civix_civicrm_caseTypes(&$caseTypes) {
       // throw new CRM_Core_Exception($errorMessage);
     }
     $caseTypes[$name] = array(
-      'module' => 'uk.co.nfpservices.module.smartcivi',
+      'module' => 'uk.co.artechconsultancy.module.smartcivi',
       'name' => $name,
       'file' => $file,
     );
@@ -230,7 +230,7 @@ function _smartcivi_civix_civicrm_angularModules(&$angularModules) {
     $name = preg_replace(':\.ang\.php$:', '', basename($file));
     $module = include $file;
     if (empty($module['ext'])) {
-      $module['ext'] = 'uk.co.nfpservices.module.smartcivi';
+      $module['ext'] = 'uk.co.artechconsultancy.module.smartcivi';
     }
     $angularModules[$name] = $module;
   }
