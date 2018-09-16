@@ -42,90 +42,7 @@ function smartcivi_civicrm_install() {
 			)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 	
 	CRM_Core_DAO::executeQuery($sql);
-	
-	//userrole table 
-	$sql = "CREATE TABLE IF NOT EXISTS `civicrm_value_smartcivi_userrole` (
-			`id` int(11) NOT NULL AUTO_INCREMENT,
-			`userrole` varchar(25) NOT NULL,
-			`date_created` datetime DEFAULT NOW(),
-			PRIMARY KEY (`id`)
-			)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-	CRM_Core_DAO::executeQuery($sql);
-	
-	//insert into table userrole
-	$sql = "INSERT INTO civicrm_value_smartcivi_userrole (userrole) Values ('user'),('admin'),('syncuser'),('staff');";
-	CRM_Core_DAO::executeQuery($sql);
-	
-	$sql = "CREATE TABLE IF NOT EXISTS `civicrm_value_smartcivi_log` (
-			`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`user` varchar(100) NOT NULL,
-			`linked_contact` varchar(20) NOT NULL,
-			`entity` varchar(25) NOT NULL,
-			`details`  LONGTEXT NOT NULL,
-			`date_created` datetime DEFAULT NOW(),
-			PRIMARY KEY (`id`)
-			)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-	
-	CRM_Core_DAO::executeQuery($sql);
-	
-	try{
-		//create option group and values
-		$result = civicrm_api3('OptionGroup', 'create', array(
-			'sequential' => 1,
-			'title' => "synchronize to outlook",
-			'is_active' => 1,
-			'data_type' => "String",
-			'name' => "synchronize to outlook",
-			'description' => "synchronize to outlook",
-			));	
-			
-		if ($result['is_error'] == 0 ){
-			
-			$option_group_id = $result['id'];
-				$result = civicrm_api3('OptionValue', 'create', array(
-					'sequential' => 1,
-					'option_group_id' => $option_group_id,
-					'label' => "Outlook",
-					'value' => 1,
-					'is_default' => 0,
-					'name' => "Outlook",
-					'is_active' => 1,
-				));	
-			
-		}
-
-		//create custom field 
-		$result = civicrm_api3('CustomGroup', 'create', array(
-			'sequential' => 1,
-			'title' => "Synchronize To Outlook",
-			'extends' => "Group",
-			'style' => "Inline",
-			'table_name' => "civicrm_value_synchronize_to_outlook",
-			'is_multiple' => 1,
-			));		
 		
-		if ($result['is_error'] == 0 ){
-		
-			$result = civicrm_api3('CustomField', 'create', array(
-				'sequential' => 1,
-				'custom_group_id' => $result['id'],
-				'label' => "Synchronize To",
-				'data_type' => "String",
-				'html_type' => "CheckBox",
-				'column_name' => "outlook",
-				'option_group_id' => $option_group_id,
-				));
-		
-		}
-	
-	} catch (Exception $e) {
-		//do nothing 
-		
-		$result['is_error'] = 1;
-	}
-	
-	
-	
   _smartcivi_civix_civicrm_install();
 }
 
@@ -161,25 +78,10 @@ function createlog($params,$user,$linked_contact,$entity){
 
 function smartcivi_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions)
 {
-  // skip permission checks for contact/create calls
-  // (but keep the ones for email, address, etc./create calls)
-  // note: unsetting the below would require the default ‘access CiviCRM’ permission
-  $permissions['smartcivi']['getcontact'] = array('access AJAX API');
 
-  // enforce ‘view all contacts’ check for contact/get, but do not test ‘access CiviCRM’
-  //$permissions['smartcivi']['getconnection'] = array('access AJAX API','access CiviCRM');
-  $permissions['smartcivi']['getconnection'] = array('access AJAX API');
-  
-  $permissions['smartcivi']['getcontacttype'] = array('access AJAX API');
-  $permissions['smartcivi']['getgroup'] = array('access AJAX API');
-  $permissions['smartcivi']['getcaseactivitytype'] = array('access AJAX API');
-  $permissions['smartcivi']['getcaseactivity'] = array('access AJAX API');
-  $permissions['smartcivi']['getcase'] = array('access AJAX API');
-  $permissions['smartcivi']['getactivity'] = array('access AJAX API');
-  $permissions['smartcivi']['createactivity'] = array('access AJAX API');
+  $permissions['smartcivi']['getcontact'] = array('access AJAX API');
   $permissions['smartcivi']['createconnection'] = array('access AJAX API');
-  $permissions['smartcivi']['getuserrole'] = array('access AJAX API');
- 
+  
 }
 
 
@@ -192,9 +94,7 @@ function smartcivi_civicrm_uninstall() {
 	
 	smartcivi_civicrm_backup_drop_table('civicrm_value_smartcivi_connection');
 	smartcivi_civicrm_backup_drop_table('civicrm_value_smartcivi_log');
-	smartcivi_civicrm_backup_drop_table('civicrm_value_smartcivi_userrole');
-	
-	
+		
   _smartcivi_civix_civicrm_uninstall();
 }
 

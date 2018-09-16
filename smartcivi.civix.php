@@ -175,7 +175,7 @@ function _smartcivi_civix_civicrm_managed(&$entities) {
     $es = include $file;
     foreach ($es as $e) {
       if (empty($e['module'])) {
-        $e['module'] = 'uk.co.nfpservices.module.smartcivi';
+        $e['module'] = 'uk.co.artechconsultancy.module.smartcivi';
       }
       $entities[] = $e;
     }
