@@ -229,19 +229,4 @@ function smartcivi_civicrm_preProcess($formName, &$form) {
 
 } // */
 
-/**
- * Implements hook_civicrm_navigationMenu().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function smartcivi_civicrm_navigationMenu(&$menu) {
-  _smartcivi_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => ts('The Page', array('domain' => 'uk.co.nfpservices.module.smartcivi')),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _smartcivi_civix_navigationMenu($menu);
-} // */
+
