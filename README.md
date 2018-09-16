@@ -23,6 +23,11 @@ Need to install the app agaisnt Android Mobile and Extension has to be installed
 To install the uk.co.artechconsultancy.module.smartcivi, move the 
 `uk.co.artechconsultancy.module.smartcivi` directory to your civicrm Custom extension folder directory and Install the extension.
 
+
+If Drupal User - Please install "CORS Module" - (Allows Cross-origin resource sharing)
+
+In CiviCRM ACL Permission - All user should have "access AJAX API" - Permission can be changed in the extension   
+
 --
 # HOW TO USE
 
