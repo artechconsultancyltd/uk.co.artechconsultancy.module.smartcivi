@@ -42,7 +42,19 @@ function smartcivi_civicrm_install() {
 			)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
 	
 	CRM_Core_DAO::executeQuery($sql);
-		
+	
+	$sql = "CREATE TABLE IF NOT EXISTS `civicrm_value_smartcivi_log` (
+			`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			`user` varchar(100) NOT NULL,
+			`linked_contact` varchar(20) NOT NULL,
+			`entity` varchar(25) NOT NULL,
+			`details`  LONGTEXT NOT NULL,
+			`date_created` datetime DEFAULT NOW(),
+			PRIMARY KEY (`id`)
+			)  ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
+	
+	CRM_Core_DAO::executeQuery($sql);
+	
   _smartcivi_civix_civicrm_install();
 }
 
