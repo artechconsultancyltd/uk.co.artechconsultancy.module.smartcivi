@@ -24,7 +24,7 @@
   <compatibility>
     <ver>4.7</ver>
   </compatibility>
-  <comments>This extension is used smartcivi android app</comments>
+  <comments>This extension is used to support smartcivi android app for civicrm</comments>
   <civix>
     <namespace>CRM/Smartcivi</namespace>
   </civix>
