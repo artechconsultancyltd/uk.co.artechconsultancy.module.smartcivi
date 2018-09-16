@@ -69,12 +69,31 @@ function civicrm_api3_smartcivi_Createconnection($params) {
 		
 		$dao = CRM_Core_DAO::executeQuery($sql);
 		
+		//get default organization 
+		$sql2 = "SELECT * FROM `civicrm_contact` where contact_type = 'Organization' limit 1"; 	
+		
+		$dao2 = CRM_Core_DAO::executeQuery($sql2);	
+		if ($dao2->fetch()){
+			$default_organization = $dao2->display_name;
+			$default_organization_id = $dao2->id;
+		}
+		
+		//get default organization email ID
+		if ($default_organization_id){
+			$sql3 = "SELECT * FROM civicrm_email WHERE is_primary = 1 AND contact_id = ".$default_organization_id; 	
+		
+			$dao3 = CRM_Core_DAO::executeQuery($sql3);	
+			if ($dao3->fetch()){
+				$default_email = $dao3->email;
+			}
+		}
+		
 		if ($contact_id){
 			
 			$values[1] = array("contact_id" => $contact_id,
 								"name" => $name,
-								"organization" => "ARTECH Consultancy Ltd",
-								"org_email" => "info@artechconsultancy.co.uk");
+								"organization" => $default_organization,
+								"org_email" => $default_email);
 			
 			$returnvalue = array(
 						'is_error' => 0,
