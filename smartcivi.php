@@ -91,9 +91,11 @@ function createlog($params,$user,$linked_contact,$entity){
 function smartcivi_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions)
 {
 
-  $permissions['smartcivi']['getcontact'] = array('access AJAX API');
-  $permissions['smartcivi']['createconnection'] = array('access AJAX API');
-  
+    $permissions['smartcivi']['getcontact'] = array('view my contact');
+  $permissions['smartcivi']['createconnection'] = array('view my contact');
+  $permissions['smartcivi']['getcontribution'] = array('view my contact');
+  $permissions['smartcivi']['getmembership'] = array('view my contact');
+
 }
 
 
