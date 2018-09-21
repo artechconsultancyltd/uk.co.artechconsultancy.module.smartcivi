@@ -26,7 +26,7 @@ To install the uk.co.artechconsultancy.module.smartcivi, move the
 
 If Drupal User - Please install "CORS Module" - (Allows Cross-origin resource sharing) - Config "*|*"
 
-In CiviCRM ACL Permission - All user should have "access AJAX API" - Permission can be changed in the extension   
+In CiviCRM ACL Permission - All user should have "view my contact" - Permission can be changed in the extension   
 
 --
 # HOW TO USE
