@@ -43,6 +43,19 @@ function civicrm_api3_smartcivi_Getcontribution($params) {
 			}
 			
 			$values[$cnt]['payment_instrument'] = $payment_instrument;
+			
+			
+			//get contribution status 
+			$sql_mem_type = "select * from civicrm_option_value where option_group_id = 11 and value = ".$dao->contribution_status_id;
+			$dao_mem_type = CRM_Core_DAO::executeQuery( $sql_mem_type);
+			
+			if ($dao_mem_type->fetch()){
+				$contribution_status = $dao_mem_type->name;
+			}
+			
+			$values[$cnt]['contribution_status'] = $contribution_status;
+			
+			
 			$date = new DateTime($dao->receive_date);
 			$values[$cnt]['receive_date'] = $date->format('d-m-Y');
 			
@@ -54,7 +67,6 @@ function civicrm_api3_smartcivi_Getcontribution($params) {
 				$values[$cnt]['receipt_date'] = $dao->receipt_date;
 			}
 			
-			$values[$cnt]['contribution_status'] = 'completed';
 			$cnt = $cnt + 1;
 		}	 
 		
